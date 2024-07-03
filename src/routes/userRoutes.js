@@ -2,6 +2,7 @@ const { Router } = require('express');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const userModel = require('../models/userModel');
+require('dotenv').config()
 
 const userRouter = Router();
 
@@ -57,7 +58,7 @@ userRouter.post('/login', async (req, res) => {
     if (result) {
       const token = jwt.sign(
         { email: exists.email, userName: exists.userName },
-        "masai"
+        process.env.JWT_SECRET,
       );
       return res.status(200).json({ accessToken: token });
     } else {

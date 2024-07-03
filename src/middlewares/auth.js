@@ -1,4 +1,5 @@
 var jwt = require('jsonwebtoken');
+require('dotenv').config()
 
 const auth = async (req, res, next) => {
     const header = req.headers.authorization;
@@ -17,7 +18,7 @@ const auth = async (req, res, next) => {
         //     return res.status(400).json({ message: "This token is blacklisted, try to get a new token" });
         // }
 
-        const decoded = jwt.verify(token, "masai");
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
         req.user = decoded;
         next();
     } catch (err) {
