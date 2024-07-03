@@ -2,14 +2,14 @@ var jwt = require('jsonwebtoken');
 require('dotenv').config()
 
 const auth = async (req, res, next) => {
-    const header = req.headers.authorization;
+    const token = req.session.token;
     console.log("middlewares", req.headers);
 
-    if (!header) {
+    if (!token) {
         return res.status(401).json({ message: "Token is not present or token is not provided" });
     }
 
-    const token = req.headers.authorization.split(" ")[1];
+    // const token = req.headers.authorization.split(" ")[1];
 
     try {
         // Uncomment and modify the following lines if you are using a blacklist token check

@@ -60,6 +60,7 @@ userRouter.post('/login', async (req, res) => {
         { email: exists.email, userName: exists.userName },
         process.env.JWT_SECRET,
       );
+      req.session.token = token
       return res.status(200).json({ accessToken: token });
     } else {
       return res
